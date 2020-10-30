@@ -24,10 +24,6 @@ func (p *pool) Get(ctx context.Context) (redsyncredis.Conn, error) {
 	return &conn{p.delegate.Get()}, nil
 }
 
-func NewPool(delegate *redis.Pool) redsyncredis.Pool {
-	return &pool{delegate}
-}
-
 type conn struct {
 	delegate redis.Conn
 }
@@ -68,9 +64,8 @@ func (c *conn) Close() error {
 func noErrNil(err error) error {
 	if err == redis.ErrNil {
 		return nil
-	} else {
-		return err
 	}
+	return err
 }
 
 func args(script *redsyncredis.Script, spec string, keysAndArgs []interface{}) []interface{} {

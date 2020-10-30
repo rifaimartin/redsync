@@ -21,6 +21,7 @@ func (p *pool) Get(ctx context.Context) (redsyncredis.Conn, error) {
 	return &conn{c}, nil
 }
 
+// NewPool function for delegate
 func NewPool(delegate *redis.Client) redsyncredis.Pool {
 	return &pool{delegate}
 }
