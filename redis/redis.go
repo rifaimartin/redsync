@@ -13,6 +13,7 @@ type Pool interface {
 	Get(ctx context.Context) (Conn, error)
 }
 
+// Conn interface
 type Conn interface {
 	Get(name string) (string, error)
 	Set(name string, value string) (bool, error)
@@ -22,12 +23,14 @@ type Conn interface {
 	Close() error
 }
 
+// Script Struct
 type Script struct {
 	KeyCount int
 	Src      string
 	Hash     string
 }
 
+// NewScript Function for handle script
 func NewScript(keyCount int, src string) *Script {
 	h := sha1.New()
 	_, _ = io.WriteString(h, src)
